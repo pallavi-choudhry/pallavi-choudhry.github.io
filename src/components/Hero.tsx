@@ -18,7 +18,7 @@ import {
   Globe
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import profileImage from "../components/assets/Profile.jpeg";
+import profileImage from "./assets/Pallavi_Photo.jpeg";
 
 // Types
 interface HeroProps {

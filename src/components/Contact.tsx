@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import { Mail, Github, Linkedin, Phone, Send, MapPin } from "lucide-react";
 
 const contactLinks = [
-  { icon: Github, href: "https://github.com", label: "GitHub" },
+  { icon: Github, href: "https://github.com/pallavi-choudhry/", label: "GitHub" },
   { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: Mail, href: "mailto:your.email@example.com", label: "Email" },
-  { icon: Phone, href: "tel:+1234567890", label: "Phone" },
+  { icon: Mail, href: "pallavich343@gmail.com", label: "Email" },
+  { icon: Phone, href: "tel:+8305171343", label: "Phone" },
 ];
 
 const Contact = () => {
