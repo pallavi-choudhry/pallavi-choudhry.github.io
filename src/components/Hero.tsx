@@ -84,7 +84,9 @@ const Hero: React.FC<HeroProps> = ({
   email = "pallavich343@example.com",
   githubUrl = "https://github.com/pallavi-choudhry/",
   linkedinUrl = "https://www.linkedin.com/in/pallavi-choudhary-0690a1274",
-  resumeUrl = "https://drive.google.com/file/d/1QCPArh5elYc4jh_DyOacO4Qx6ekV2K8s/view?usp=drivesdk",
+  // resumeUrl = "https://drive.google.com/file/d/1QCPArh5elYc4jh_DyOacO4Qx6ekV2K8s/view?usp=drivesdk",
+  // resumeUrl = "https://drive.google.com/file/d/1lgBxz7Q0Q69MGZiBvBBzcfq_nB2xADUb/view?usp=drive_link",
+
   availableForWork = true,
 }) => {
   const [typedText, setTypedText] = useState("");
@@ -154,8 +156,6 @@ const Hero: React.FC<HeroProps> = ({
           className="orb absolute bottom-1/3 right-1/4 w-[200px] h-[200px] bg-[#fdcb6e] rounded-full blur-[100px]"
         />
 
-        
-        
         {/* Grid pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
         
@@ -250,7 +250,7 @@ const Hero: React.FC<HeroProps> = ({
             {/* Description */}
             <motion.p variants={itemVariants} className="text-[#dfe6e9] text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed">
               
-              Full Stack MERN Developer with 1.8+ years of experience building responsive, scalable, and user-friendly web applications using{' '}
+              Full Stack MERN Developer with nearly 2 years of experience building responsive, scalable, and user-friendly web applications using{' '}
               <span className="text-[#a29bfe] font-semibold">React.js</span>,{' '}
               <span className="text-[#00b4d8] font-semibold">Node.js</span>,{' '}
               <span className="text-[#fd79a8] font-semibold">Express.js</span>, and{' '}
@@ -288,7 +288,7 @@ const Hero: React.FC<HeroProps> = ({
               </motion.a>
               
               {/* Resume Button */}
-              <motion.a
+              {/* <motion.a
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 href={resumeUrl}
@@ -297,10 +297,10 @@ const Hero: React.FC<HeroProps> = ({
               >
                 <Download className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
                 Download Resume
-              </motion.a>
+              </motion.a> */}
               
               {/* Contact Button */}
-              <motion.a
+              {/* <motion.a
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 href={`mailto:${email}`}
@@ -308,7 +308,7 @@ const Hero: React.FC<HeroProps> = ({
               >
                 <Mail className="w-4 h-4" />
                 Contact Me
-              </motion.a>
+              </motion.a> */}
             {/* </motion.div> */}
 
           

@@ -5,10 +5,14 @@ const skills = [
   { name: "CSS3", level: 85, category: "Frontend", icon: "🎨" },
   { name: "JavaScript", level: 85, category: "Frontend", icon: "⚡" },
   { name: "React.js", level: 80, category: "Frontend", icon: "⚛️" },
+  { name: "Next.js", level: 50, category: "Frontend", icon: "▲" },
+  { name: "Typescript", level: 80, category: "Frontend", icon: "🔷" },
   { name: "Tailwind CSS", level: 75, category: "Frontend", icon: "💨" },
   { name: "Git", level: 75, category: "Tools", icon: "📦" },
+  { name: "Github", level: 75, category: "Tools", icon: "📦" },
   { name: "Node.js", level: 60, category: "Backend", icon: "🟢" },
-  { name: "MongoDB", level: 55, category: "Backend", icon: "🍃" },
+  { name: "MongoDB", level: 55, category: "Database", icon: "🍃" },
+  { name: "MYSQL", level: 55, category: "Database", icon: "🐬" },
   { name: "Express.js", level: 55, category: "Backend", icon: "🚂" },
 ];
 
@@ -48,6 +52,7 @@ const SkillBar = ({ skill, index }: { skill: typeof skills[0]; index: number }) 
 const Skills = () => {
   const frontend = skills.filter((s) => s.category === "Frontend");
   const backend = skills.filter((s) => s.category === "Backend");
+  const Database = skills.filter((s) => s.category === "Database");
   const tools = skills.filter((s) => s.category === "Tools");
 
   return (
@@ -77,7 +82,7 @@ const Skills = () => {
             Technologies I've been working with recently to build modern web applications.
           </p>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-4 gap-8">
             {/* Frontend */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -115,6 +120,26 @@ const Skills = () => {
               </div>
               <div className="space-y-3">
                 {backend.map((skill, index) => (
+                  <SkillBar key={skill.name} skill={skill} index={index + frontend.length} />
+                ))}
+              </div>
+            </motion.div>
+
+             <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="space-y-4"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white font-bold shadow-lg shadow-purple-500/20">
+                  D
+                </div>
+                <h3 className="text-lg font-semibold text-white">Database</h3>
+              </div>
+              <div className="space-y-3">
+                {Database.map((skill, index) => (
                   <SkillBar key={skill.name} skill={skill} index={index + frontend.length} />
                 ))}
               </div>

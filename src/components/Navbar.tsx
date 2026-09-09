@@ -29,7 +29,7 @@ const Navbar: React.FC<NavbarProps> = ({
   email = "pallavich343@example.com",
   githubUrl = "https://github.com/pallavi-choudhry/",
   linkedinUrl = "https://www.linkedin.com/in/pallavi-choudhary-0690a1274",
-  resumeUrl = "https://drive.google.com/file/d/1QCPArh5elYc4jh_DyOacO4Qx6ekV2K8s/view?usp=drivesdk",
+  // resumeUrl = "https://drive.google.com/file/d/1QCPArh5elYc4jh_DyOacO4Qx6ekV2K8s/view?usp=drivesdk",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -185,7 +185,7 @@ const Navbar: React.FC<NavbarProps> = ({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.4 }}
             >
-              <motion.a
+              {/* <motion.a
                 href={resumeUrl}
                 target="_blank"
                 whileHover={{ scale: 1.05, y: -2 }}
@@ -194,7 +194,7 @@ const Navbar: React.FC<NavbarProps> = ({
               >
                 <Sparkles className="w-4 h-4" />
                 Resume
-              </motion.a>
+              </motion.a> */}
             </motion.li>
           </ul>
 
@@ -301,7 +301,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
                 {/* Action buttons */}
                 <div className="flex flex-col gap-3 pt-4 border-t border-white/5">
-                  <motion.a
+                  {/* <motion.a
                     href={resumeUrl}
                     target="_blank"
                     whileHover={{ scale: 1.02 }}
@@ -311,7 +311,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     <Sparkles className="w-4 h-4" />
                     Download Resume
                   </motion.a>
-                  
+                   */}
                   <div className="flex items-center justify-center gap-4">
                     <motion.a
                       whileHover={{ scale: 1.1 }}

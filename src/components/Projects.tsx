@@ -21,16 +21,16 @@ const otherProjects = [
   {
     title: "Document Management System",
     description: "Personal developer portfolio showcasing skills and projects with modern animations.",
-    tech: ["React", "Tailwind CSS", "Framer Motion"],
+    tech: ["React", "Material UI", "Framer Motion"],
   },
 
   {
-    title: "Finanace DasHboard",
+    title: "Finanace Dashboard",
     description: "Full-stack task management application with user authentication and team collaboration.",
     tech: ["React", "Express.js", "MongoDB"],
   },
   {
-    title: "Serve Now",
+    title: "Service Booking System",
     description: "Admin dashboard for managing products, orders, and customer data with real-time updates.",
     tech: ["React", "Node.js", "MongoDB"],
   },
@@ -39,8 +39,6 @@ const otherProjects = [
     description: "Full-stack task management application with user authentication and team collaboration.",
     tech: ["React", "Express.js", "MongoDB"],
   },
-
-  
 
   {
     title: "Psycology Online Test",

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
 
-  "homepage": "https://pallavi-choudhry.github.io/Portpolio_Website",
+  
   "scripts": {
     "dev": "vite",
     "build": "vite build",
