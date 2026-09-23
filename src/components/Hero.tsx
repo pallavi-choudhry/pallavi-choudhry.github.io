@@ -93,6 +93,17 @@ const Hero: React.FC<HeroProps> = ({
   const [isTypingComplete, setIsTypingComplete] = useState(false);
   const fullGreeting = "Hi, I'm Pallavi Choudhry";
 
+  // Prevent browser scroll restore — fixes "bottom flash then top" on reload
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    if (window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
   // Typing effect
   useEffect(() => {
     let index = 0;
@@ -193,10 +204,6 @@ const Hero: React.FC<HeroProps> = ({
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
             {/* Status Badge */}
             <motion.div variants={itemVariants} className="flex items-center gap-3">
-              <span className="relative flex h-3 w-3">
-                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${availableForWork ? 'bg-[#00b894]' : 'bg-[#fd79a8]'} opacity-75`}></span>
-                <span className={`relative inline-flex rounded-full h-3 w-3 ${availableForWork ? 'bg-[#00b894]' : 'bg-[#fd79a8]'}`}></span>
-              </span>
               {/* <span className="text-[#b2bec3] text-sm font-mono tracking-wider">
                 {availableForWork ? 'AVAILABLE FOR OPPORTUNITIES' : 'CURRENTLY UNAVAILABLE'}
               </span> */}
@@ -220,7 +227,7 @@ const Hero: React.FC<HeroProps> = ({
 
             {/* Greeting with typing effect */}
             <motion.div variants={itemVariants}>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+              <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold leading-tight py-5">
                 <span className="text-white/90">
                   {typedText}
                   {!isTypingComplete && (
@@ -357,7 +364,7 @@ const Hero: React.FC<HeroProps> = ({
           
           {/* Profile Image Section - Moved inside the grid */}
            <div className="relative flex justify-center order-first lg:order-none 
-  -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-20 xl:-mt-24">
+  mt-4 sm:-mt-12 md:-mt-16 lg:-mt-20 xl:-mt-24">
   
   {/* Glow - Responsive */}
   <div className="absolute inset-0 rounded-full 
@@ -374,21 +381,22 @@ const Hero: React.FC<HeroProps> = ({
     whileHover={{ scale: 1.05 }}
     transition={{ duration: 0.3 }}
     className="relative 
-     w-56 h-56 
-      xs:w-64 xs:h-64 
-      sm:w-72 sm:h-72 
-      md:w-80 md:h-80 
-      xl:w-[340px] xl:h-[340px] 
-      2xl:w-[400px] 2xl:h-[400px] 
-      rounded-full object-cover 
-      border-2 sm:border-4 border-white/50 
-      shadow-[0_0_40px_rgba(108,92,231,0.3)] 
-      sm:shadow-[0_0_60px_rgba(108,92,231,0.4)] 
-      lg:shadow-[0_0_80px_rgba(108,92,231,0.5)] 
-      hover:shadow-[0_0_100px_rgba(108,92,231,0.6)] 
-      transition-all duration-300"
-  />
-</div>
+    w-48 h-48 
+    xs:w-56 xs:h-56 
+    sm:w-64 sm:h-64 
+    md:w-72 md:h-72 
+    lg:w-80 lg:h-80 
+    xl:w-[340px] xl:h-[340px] 
+    2xl:w-[400px] 2xl:h-[400px] 
+    max-w-[80vw] max-h-[80vw]
+    rounded-full object-cover 
+    border-2 sm:border-4 border-white/50 
+    shadow-[0_0_40px_rgba(108,92,231,0.3)] 
+    sm:shadow-[0_0_60px_rgba(108,92,231,0.4)] 
+    lg:shadow-[0_0_80px_rgba(108,92,231,0.5)] 
+    hover:shadow-[0_0_100px_rgba(108,92,231,0.6)] 
+    transition-all duration-300"/>
+  </div>
         </div>
         </div>
       </motion.div>

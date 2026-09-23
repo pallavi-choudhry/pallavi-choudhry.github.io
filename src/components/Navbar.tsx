@@ -1,6 +1,16 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Github, Linkedin, Mail, Home, User, Code2, FolderGit2, Mail as MailIcon, Sparkles } from "lucide-react";
+import {
+  Menu,
+  X,
+  Github,
+  Linkedin,
+  Mail,
+  User,
+  Code2,
+  FolderGit2,
+  Mail as MailIcon,
+} from "lucide-react";
 
 interface NavLink {
   name: string;
@@ -9,10 +19,13 @@ interface NavLink {
 }
 
 const navLinks: NavLink[] = [
-  // { name: "Home", href: "#", icon: <Home className="w-4 h-4" /> },
   { name: "About", href: "#about", icon: <User className="w-4 h-4" /> },
   { name: "Skills", href: "#skills", icon: <Code2 className="w-4 h-4" /> },
-  { name: "Projects", href: "#projects", icon: <FolderGit2 className="w-4 h-4" /> },
+  {
+    name: "Projects",
+    href: "#projects",
+    icon: <FolderGit2 className="w-4 h-4" />,
+  },
   { name: "Contact", href: "#contact", icon: <MailIcon className="w-4 h-4" /> },
 ];
 
@@ -22,334 +35,250 @@ interface NavbarProps {
   email?: string;
   resumeUrl?: string;
   name?: string;
+  designation?: string;
 }
 
 const Navbar: React.FC<NavbarProps> = ({
-  name = "Pallavi Choudhary",
-  email = "pallavich343@example.com",
-  githubUrl = "https://github.com/pallavi-choudhry/",
-  linkedinUrl = "https://www.linkedin.com/in/pallavi-choudhary-0690a1274",
-  // resumeUrl = "https://drive.google.com/file/d/1QCPArh5elYc4jh_DyOacO4Qx6ekV2K8s/view?usp=drivesdk",
+  name = "Pallavi Choudhry",
+  designation = "Software Developer",
+  githubUrl = "https://github.com",
+  linkedinUrl = "https://linkedin.com",
+  email = "mailto:hello@example.com",
+  resumeUrl = "#",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
 
-  // Handle scroll events
+  // Scroll-based background change
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
-      
-      // Update active section based on scroll position
-      const sections = navLinks.map(link => link.href.replace('#', ''));
-      const scrollPosition = window.scrollY + 100;
-      
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
-    
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on resize
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    const original = document.body.style.overflow;
+    document.body.style.overflow = isOpen ? "hidden" : original;
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, [isOpen]);
+
+  // Close mobile menu on resize to desktop
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsOpen(false);
-      }
+      if (window.innerWidth >= 768) setIsOpen(false);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Smooth scroll handler
-  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const targetId = href.replace('#', '');
-    const element = document.getElementById(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsOpen(false);
-    }
-  };
+  // Close on Escape key
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, []);
+
+  const handleLinkClick = () => setIsOpen(false);
 
   return (
-    <>
-      <motion.header
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, type: "spring", damping: 20 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled 
-            ? "glass-card shadow-[0_8px_32px_rgba(0,0,0,0.4)] border border-white/10" 
-            : "bg-transparent"
-        }`}
-        style={{
-          backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
-        }}
-      >
-        <nav className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
-          {/* Logo */}
-          <motion.a 
-            href="#home"
-            onClick={(e) => handleSmoothScroll(e, '#home')}
-            className="flex items-center gap-2 group relative"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+    <motion.header
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+        scrolled || isOpen
+          ? "bg-slate-900/85 backdrop-blur-lg border-b border-white/10 shadow-lg shadow-black/20"
+          : "bg-transparent border-b border-transparent"
+      }`}
+    >
+      <nav className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 md:h-20 items-center justify-between gap-10 ">
+          {/* ---------- Brand: Name + Designation ---------- */}
+          <a
+            href="#"
+            onClick={handleLinkClick}
+            className="group flex min-w-0 flex-col leading-tight"
           >
-            {/* Logo icon */}
-            <div className="relative">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#6c5ce7] to-[#a29bfe] flex items-center justify-center shadow-lg shadow-[#6c5ce7]/30 group-hover:shadow-[#6c5ce7]/50 transition-all duration-300">
-                <span className="text-white font-bold text-sm">P</span>
-              </div>
-              <motion.div
-                className="absolute -inset-1 rounded-full bg-gradient-to-br from-[#6c5ce7] to-[#fd79a8] opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-300"
-                animate={{
-                  scale: [1, 1.2, 1],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-            </div>
-            
-            <div className="hidden sm:block">
-              <span className="font-bold text-lg bg-gradient-to-r from-[#a29bfe] to-[#fd79a8] bg-clip-text text-transparent">
-                {name}
-              </span>
-              <span className="block text-[10px] font-mono text-[#b2bec3]/60 tracking-wider">
-                Full Stack MERN Developer <br/>
-                {/* Building scalable, responsive, and user-centric web applications. */}
-              </span>
-            </div>
-          </motion.a>
+            <span className="truncate text-base sm:text-lg md:text-xl font-semibold tracking-tight text-white transition-colors group-hover:text-cyan-400">
+              {name}
+            </span>
+            <span className="truncate text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-cyan-400/80">
+              {designation}
+            </span>
+          </a>
 
-          {/* Desktop Navigation */}
-          <ul className="hidden md:flex items-center gap-1">
-            {navLinks.map((link, index) => {
-              const isActive = activeSection === link.href.replace('#', '');
-              return (
-                <motion.li
-                  key={link.name}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
+          {/* ---------- Desktop nav ---------- */}
+          <ul className="hidden md:flex items-center gap-6 lg:gap-8">
+            {navLinks.map((link) => (
+              <li key={link.name}>
+                <a
+                  href={link.href}
+                  className="group relative flex items-center gap-2 text-sm font-medium text-slate-300 transition-colors hover:text-cyan-400"
                 >
-                  <a
-                    href={link.href}
-                    onClick={(e) => handleSmoothScroll(e, link.href)}
-                    className={`relative flex items-center gap-2 font-mono text-sm px-4 py-2.5 rounded-xl transition-all duration-300 group ${
-                      isActive 
-                        ? 'text-white bg-gradient-to-r from-[#6c5ce7]/20 to-[#a29bfe]/20 border border-[#6c5ce7]/30' 
-                        : 'text-[#b2bec3] hover:text-white hover:bg-white/5'
-                    }`}
-                  >
-                    <span className={`${isActive ? 'text-[#a29bfe]' : 'text-[#b2bec3]/50 group-hover:text-[#a29bfe]'} transition-colors duration-300`}>
-                      {link.icon}
-                    </span>
-                    {link.name}
-                    
-                    {/* Active indicator */}
-                    {isActive && (
-                      <motion.span
-                        layoutId="activeNav"
-                        className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#6c5ce7]/10 to-[#a29bfe]/10 -z-10"
-                        transition={{ type: "spring", duration: 0.6 }}
-                      />
-                    )}
-                    
-                    {/* Hover underline effect */}
-                    <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-[#6c5ce7] to-[#a29bfe] group-hover:w-1/2 transition-all duration-300 ${
-                      isActive ? 'w-1/2' : ''
-                    }`} />
-                  </a>
-                </motion.li>
-              );
-            })}
-            
-            {/* Resume Button */}
-            <motion.li
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.4 }}
-            >
-              {/* <motion.a
-                href={resumeUrl}
-                target="_blank"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-2 font-mono text-sm px-5 py-2.5 bg-gradient-to-r from-[#6c5ce7] to-[#a29bfe] text-white font-semibold rounded-xl shadow-lg shadow-[#6c5ce7]/30 hover:shadow-[#6c5ce7]/50 transition-all duration-300 ml-2"
-              >
-                <Sparkles className="w-4 h-4" />
-                Resume
-              </motion.a> */}
-            </motion.li>
+                  {link.icon}
+                  <span>{link.name}</span>
+                  <span className="absolute -bottom-1 left-0 h-px w-0 bg-cyan-400 transition-all duration-300 group-hover:w-full" />
+                </a>
+              </li>
+            ))}
           </ul>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center gap-3 md:hidden">
-            {/* Social icons on mobile */}
-            <div className="flex items-center gap-1">
-              <motion.a
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                href={githubUrl}
-                target="_blank"
-                className="p-2 rounded-lg text-[#b2bec3] hover:text-[#a29bfe] hover:bg-white/5 transition-all duration-300"
-              >
-                <Github className="w-4 h-4" />
-              </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                href={linkedinUrl}
-                target="_blank"
-                className="p-2 rounded-lg text-[#b2bec3] hover:text-[#a29bfe] hover:bg-white/5 transition-all duration-300"
-              >
-                <Linkedin className="w-4 h-4" />
-              </motion.a>
-            </div>
-            
-            <motion.button
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setIsOpen(!isOpen)}
-              className={`relative p-2.5 rounded-xl transition-all duration-300 ${
-                isOpen 
-                  ? 'bg-gradient-to-r from-[#6c5ce7]/20 to-[#a29bfe]/20 border border-[#6c5ce7]/30' 
-                  : 'glass-hover border border-white/5'
-              }`}
+          {/* ---------- Desktop actions ---------- */}
+          <div className="hidden md:flex items-center gap-3 lg:gap-4">
+            <a
+              href={githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="rounded-full p-2 text-slate-300 transition-colors hover:bg-white/5 hover:text-cyan-400"
             >
-              {isOpen ? (
-                <X className="w-5 h-5 text-[#a29bfe]" />
-              ) : (
-                <Menu className="w-5 h-5 text-[#b2bec3]" />
-              )}
-            </motion.button>
+              <Github className="h-5 w-5" />
+            </a>
+            <a
+              href={linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="rounded-full p-2 text-slate-300 transition-colors hover:bg-white/5 hover:text-cyan-400"
+            >
+              <Linkedin className="h-5 w-5" />
+            </a>
+            <a
+              href={email}
+              aria-label="Email"
+              className="rounded-full p-2 text-slate-300 transition-colors hover:bg-white/5 hover:text-cyan-400"
+            >
+              <Mail className="h-5 w-5" />
+            </a>
+            <a
+              href={resumeUrl}
+              className="ml-1 rounded-full bg-cyan-500 px-4 py-2 text-sm font-semibold text-slate-900 transition-colors hover:bg-cyan-400"
+            >
+              Resume
+            </a>
           </div>
-        </nav>
 
-        {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0, scale: 0.95 }}
-              animate={{ opacity: 1, height: "auto", scale: 1 }}
-              exit={{ opacity: 0, height: 0, scale: 0.95 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="md:hidden glass-card border-t border-white/10 overflow-hidden"
-              style={{
-                backdropFilter: 'blur(20px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-              }}
-            >
-              <div className="px-6 py-6 space-y-6">
-                {/* Profile section */}
-                <div className="flex items-center gap-4 pb-4 border-b border-white/5">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#6c5ce7] to-[#a29bfe] flex items-center justify-center shadow-lg">
-                    <span className="text-white font-bold text-lg">P</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-white">{name}</h3>
-                    <p className="text-xs text-[#b2bec3]/60 font-mono">MERN Stack Developer</p>
-                  </div>
-                </div>
+          {/* ---------- Mobile toggle ---------- */}
+          <button
+            type="button"
+            onClick={() => setIsOpen((v) => !v)}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+            className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg text-slate-200 transition-colors hover:bg-white/5 hover:text-cyan-400"
+          >
+            <AnimatePresence initial={false} mode="wait">
+              {isOpen ? (
+                <motion.span
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <X className="h-6 w-6" />
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <Menu className="h-6 w-6" />
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </button>
+        </div>
+      </nav>
 
-                {/* Navigation links */}
-                <ul className="flex flex-col gap-2">
-                  {navLinks.map((link, index) => {
-                    const isActive = activeSection === link.href.replace('#', '');
-                    return (
-                      <motion.li 
-                        key={link.name}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.08 }}
-                      >
-                        <a
-                          href={link.href}
-                          onClick={(e) => handleSmoothScroll(e, link.href)}
-                          className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
-                            isActive
-                              ? 'bg-gradient-to-r from-[#6c5ce7]/20 to-[#a29bfe]/20 border border-[#6c5ce7]/30 text-white'
-                              : 'text-[#b2bec3] hover:text-white hover:bg-white/5'
-                          }`}
-                        >
-                          <span className={`${isActive ? 'text-[#a29bfe]' : 'text-[#b2bec3]/50'}`}>
-                            {link.icon}
-                          </span>
-                          <span className="font-medium">{link.name}</span>
-                          {isActive && (
-                            <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[#a29bfe] animate-pulse" />
-                          )}
-                        </a>
-                      </motion.li>
-                    );
-                  })}
-                </ul>
-
-                {/* Action buttons */}
-                <div className="flex flex-col gap-3 pt-4 border-t border-white/5">
-                  {/* <motion.a
-                    href={resumeUrl}
-                    target="_blank"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#6c5ce7] to-[#a29bfe] text-white font-semibold rounded-xl shadow-lg shadow-[#6c5ce7]/30"
+      {/* ---------- Mobile menu ---------- */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            id="mobile-menu"
+            key="mobile-menu"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="md:hidden overflow-hidden border-t border-white/10 bg-slate-900/95 backdrop-blur-lg"
+          >
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 py-4">
+              {/* Nav links */}
+              <ul className="flex flex-col gap-1">
+                {navLinks.map((link, i) => (
+                  <motion.li
+                    key={link.name}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 * i, duration: 0.25 }}
                   >
-                    <Sparkles className="w-4 h-4" />
-                    Download Resume
-                  </motion.a>
-                   */}
-                  <div className="flex items-center justify-center gap-4">
-                    <motion.a
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      href={githubUrl}
-                      target="_blank"
-                      className="p-3 glass-hover rounded-xl text-[#b2bec3] hover:text-[#a29bfe] border border-white/5 hover:border-[#6c5ce7]/30 transition-all duration-300"
+                    <a
+                      href={link.href}
+                      onClick={handleLinkClick}
+                      className="flex items-center gap-3 rounded-lg px-3 py-3 text-base font-medium text-slate-200 transition-colors hover:bg-white/5 hover:text-cyan-400"
                     >
-                      <Github className="w-5 h-5" />
-                    </motion.a>
-                    <motion.a
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      href={linkedinUrl}
-                      target="_blank"
-                      className="p-3 glass-hover rounded-xl text-[#b2bec3] hover:text-[#a29bfe] border border-white/5 hover:border-[#6c5ce7]/30 transition-all duration-300"
-                    >
-                      <Linkedin className="w-5 h-5" />
-                    </motion.a>
-                    <motion.a
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      href={`mailto:${email}`}
-                      className="p-3 glass-hover rounded-xl text-[#b2bec3] hover:text-[#a29bfe] border border-white/5 hover:border-[#6c5ce7]/30 transition-all duration-300"
-                    >
-                      <Mail className="w-5 h-5" />
-                    </motion.a>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.header>
+                      {link.icon}
+                      {link.name}
+                    </a>
+                  </motion.li>
+                ))}
+              </ul>
 
-      {/* Spacer to prevent content hiding under navbar */}
-      <div className="h-16 sm:h-20" />
-    </>
+              {/* Divider */}
+              <div className="my-4 h-px w-full bg-white/10" />
+
+              {/* Socials + Resume */}
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <a
+                    href={githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                    className="rounded-full p-2.5 text-slate-300 transition-colors hover:bg-white/5 hover:text-cyan-400"
+                  >
+                    <Github className="h-5 w-5" />
+                  </a>
+                  <a
+                    href={linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                    className="rounded-full p-2.5 text-slate-300 transition-colors hover:bg-white/5 hover:text-cyan-400"
+                  >
+                    <Linkedin className="h-5 w-5" />
+                  </a>
+                  <a
+                    href={email}
+                    aria-label="Email"
+                    className="rounded-full p-2.5 text-slate-300 transition-colors hover:bg-white/5 hover:text-cyan-400"
+                  >
+                    <Mail className="h-5 w-5" />
+                  </a>
+                </div>
+                <a
+                  href={resumeUrl}
+                  onClick={handleLinkClick}
+                  className="rounded-full bg-cyan-500 px-5 py-2.5 text-sm font-semibold text-slate-900 transition-colors hover:bg-cyan-400"
+                >
+                  Resume
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 };
 
