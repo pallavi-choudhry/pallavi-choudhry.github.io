@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu,
@@ -11,29 +12,30 @@ import {
   FolderGit2,
   Mail as MailIcon,
 } from "lucide-react";
+import { NavLink } from "@/components/NavLink";
 
-interface NavLink {
+interface NavLinkItem {
   name: string;
   href: string;
   icon?: React.ReactNode;
 }
 
-const navLinks: NavLink[] = [
-  { name: "About", href: "#about", icon: <User className="w-4 h-4" /> },
-  { name: "Skills", href: "#skills", icon: <Code2 className="w-4 h-4" /> },
+const navLinks: NavLinkItem[] = [
+  { name: "About", href: "/about", icon: <User className="w-5 h-5" /> },
+  { name: "Skills", href: "/skills", icon: <Code2 className="w-5 h-5" /> },
   {
     name: "Projects",
-    href: "#projects",
-    icon: <FolderGit2 className="w-4 h-4" />,
+    href: "/projects",
+    icon: <FolderGit2 className="w-5 h-5" />,
   },
-  { name: "Contact", href: "#contact", icon: <MailIcon className="w-4 h-4" /> },
+  { name: "Contact", href: "/contact", icon: <MailIcon className="w-5 h-5" /> },
 ];
 
 interface NavbarProps {
-  githubUrl?: string;
-  linkedinUrl?: string;
-  email?: string;
-  resumeUrl?: string;
+  // githubUrl?: string;
+  // linkedinUrl?: string;
+  // email?: string;
+  // resumeUrl?: string;
   name?: string;
   designation?: string;
 }
@@ -41,10 +43,10 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({
   name = "Pallavi Choudhry",
   designation = "Software Developer",
-  githubUrl = "https://github.com",
-  linkedinUrl = "https://linkedin.com",
-  email = "mailto:hello@example.com",
-  resumeUrl = "#",
+  // githubUrl = "https://github.com",
+  // linkedinUrl = "https://linkedin.com",
+  // email = "mailto:hello@example.com",
+  // resumeUrl = "#",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -100,8 +102,8 @@ const Navbar: React.FC<NavbarProps> = ({
       <nav className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 md:h-20 items-center justify-between gap-10 ">
           {/* ---------- Brand: Name + Designation ---------- */}
-          <a
-            href="#"
+          <Link
+            to="/"
             onClick={handleLinkClick}
             className="group flex min-w-0 flex-col leading-tight"
           >
@@ -111,27 +113,28 @@ const Navbar: React.FC<NavbarProps> = ({
             <span className="truncate text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-cyan-400/80">
               {designation}
             </span>
-          </a>
+          </Link>
 
           {/* ---------- Desktop nav ---------- */}
           <ul className="hidden md:flex items-center gap-6 lg:gap-8">
             {navLinks.map((link) => (
               <li key={link.name}>
-                <a
-                  href={link.href}
+                <NavLink
+                  to={link.href}
                   className="group relative flex items-center gap-2 text-sm font-medium text-slate-300 transition-colors hover:text-cyan-400"
+                  activeClassName="text-cyan-400"
                 >
                   {link.icon}
                   <span>{link.name}</span>
                   <span className="absolute -bottom-1 left-0 h-px w-0 bg-cyan-400 transition-all duration-300 group-hover:w-full" />
-                </a>
+                </NavLink>
               </li>
             ))}
           </ul>
 
           {/* ---------- Desktop actions ---------- */}
           <div className="hidden md:flex items-center gap-3 lg:gap-4">
-            <a
+            {/* <a
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -139,8 +142,8 @@ const Navbar: React.FC<NavbarProps> = ({
               className="rounded-full p-2 text-slate-300 transition-colors hover:bg-white/5 hover:text-cyan-400"
             >
               <Github className="h-5 w-5" />
-            </a>
-            <a
+            </a> */}
+            {/* <a
               href={linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -148,20 +151,20 @@ const Navbar: React.FC<NavbarProps> = ({
               className="rounded-full p-2 text-slate-300 transition-colors hover:bg-white/5 hover:text-cyan-400"
             >
               <Linkedin className="h-5 w-5" />
-            </a>
-            <a
+            </a> */}
+            {/* <a
               href={email}
               aria-label="Email"
               className="rounded-full p-2 text-slate-300 transition-colors hover:bg-white/5 hover:text-cyan-400"
             >
               <Mail className="h-5 w-5" />
-            </a>
-            <a
+            </a> */}
+            {/* <a
               href={resumeUrl}
               className="ml-1 rounded-full bg-cyan-500 px-4 py-2 text-sm font-semibold text-slate-900 transition-colors hover:bg-cyan-400"
             >
               Resume
-            </a>
+            </a> */}
           </div>
 
           {/* ---------- Mobile toggle ---------- */}
@@ -222,14 +225,15 @@ const Navbar: React.FC<NavbarProps> = ({
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.05 * i, duration: 0.25 }}
                   >
-                    <a
-                      href={link.href}
+                    <NavLink
+                      to={link.href}
                       onClick={handleLinkClick}
                       className="flex items-center gap-3 rounded-lg px-3 py-3 text-base font-medium text-slate-200 transition-colors hover:bg-white/5 hover:text-cyan-400"
+                      activeClassName="bg-white/5 text-cyan-400"
                     >
                       {link.icon}
                       {link.name}
-                    </a>
+                    </NavLink>
                   </motion.li>
                 ))}
               </ul>
@@ -240,7 +244,7 @@ const Navbar: React.FC<NavbarProps> = ({
               {/* Socials + Resume */}
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
-                  <a
+                  {/* <a
                     href={githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -264,15 +268,15 @@ const Navbar: React.FC<NavbarProps> = ({
                     className="rounded-full p-2.5 text-slate-300 transition-colors hover:bg-white/5 hover:text-cyan-400"
                   >
                     <Mail className="h-5 w-5" />
-                  </a>
+                  </a> */}
                 </div>
-                <a
+                {/* <a
                   href={resumeUrl}
                   onClick={handleLinkClick}
                   className="rounded-full bg-cyan-500 px-5 py-2.5 text-sm font-semibold text-slate-900 transition-colors hover:bg-cyan-400"
                 >
                   Resume
-                </a>
+                </a> */}
               </div>
             </div>
           </motion.div>

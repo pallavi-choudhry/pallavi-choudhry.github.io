@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   Github,
   Linkedin,
@@ -38,21 +39,21 @@ const Footer = () => {
               Quick Links
             </h3>
 
-            <a href="#about" className="text-gray-400 hover:text-purple-400 transition">
+            <Link to="/about" className="text-gray-400 hover:text-purple-400 transition">
               About
-            </a>
+            </Link>
 
-            <a href="#skills" className="text-gray-400 hover:text-purple-400 transition">
+            <Link to="/skills" className="text-gray-400 hover:text-purple-400 transition">
               Skills
-            </a>
+            </Link>
 
-            <a href="#projects" className="text-gray-400 hover:text-purple-400 transition">
+            <Link to="/projects" className="text-gray-400 hover:text-purple-400 transition">
               Projects
-            </a>
+            </Link>
 
-            <a href="#contact" className="text-gray-400 hover:text-purple-400 transition">
+            <Link to="/contact" className="text-gray-400 hover:text-purple-400 transition">
               Contact
-            </a>
+            </Link>
 
           </div>
 
@@ -69,6 +70,7 @@ const Footer = () => {
                 whileHover={{ scale: 1.15 }}
                 href="https://github.com/your-github"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="w-11 h-11 rounded-full border border-purple-500/30 flex items-center justify-center text-gray-300 hover:bg-purple-600 hover:text-white transition"
               >
                 <Github size={20} />
@@ -78,6 +80,7 @@ const Footer = () => {
                 whileHover={{ scale: 1.15 }}
                 href="https://linkedin.com/in/your-linkedin"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="w-11 h-11 rounded-full border border-purple-500/30 flex items-center justify-center text-gray-300 hover:bg-purple-600 hover:text-white transition"
               >
                 <Linkedin size={20} />

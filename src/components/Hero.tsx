@@ -18,7 +18,7 @@ import {
   Globe
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import profileImage from "./assets/Pallavi_Photo.jpeg";
+import profileImage from "./assets/Pallavi_image2.png";
 
 // Types
 interface HeroProps {
@@ -257,11 +257,17 @@ const Hero: React.FC<HeroProps> = ({
             {/* Description */}
             <motion.p variants={itemVariants} className="text-[#dfe6e9] text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed">
               
-              Full Stack MERN Developer with nearly 2 years of experience building responsive, scalable, and user-friendly web applications using{' '}
-              <span className="text-[#a29bfe] font-semibold">React.js</span>,{' '}
+             <span className="text-[#00b4d8] font-bold text-xl"> Full Stack MERN Developer</span>{' '} <br />
+              Turning business ideas into clean, responsive and user-focused web applications.
+              From React interfaces to APIs, authentication and database integration.<br />
+              {/* <span className="font-semibold text-base"> React.js • JavaScript • Node.js • Express.js • MongoDB • REST APIs • Redux Toolkit</span>,{' '}
+             
+
+              <br />Available for Immediate Joining */}
+              {/* <span className="text-[#a29bfe] font-semibold">React.js</span>,{' '}
               <span className="text-[#00b4d8] font-semibold">Node.js</span>,{' '}
               <span className="text-[#fd79a8] font-semibold">Express.js</span>, and{' '}
-              <span className="text-[#00b894] font-semibold">MongoDB</span>.
+              <span className="text-[#00b894] font-semibold">MongoDB</span>. */}
             </motion.p>
 
             {/* Tech Stack Icons */}
@@ -364,7 +370,7 @@ const Hero: React.FC<HeroProps> = ({
           
           {/* Profile Image Section - Moved inside the grid */}
            <div className="relative flex justify-center order-first lg:order-none 
-  mt-4 sm:-mt-12 md:-mt-16 lg:-mt-20 xl:-mt-24">
+  mt-8 sm:-mt-16 md:-mt-20 lg:-mt-24 xl:-mt-28">
   
   {/* Glow - Responsive */}
   <div className="absolute inset-0 rounded-full 
