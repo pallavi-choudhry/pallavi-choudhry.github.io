@@ -8,6 +8,7 @@ import {
   Linkedin,
   Mail,
   User,
+  Home,
   Code2,
   FolderGit2,
   Mail as MailIcon,
@@ -21,6 +22,7 @@ interface NavLinkItem {
 }
 
 const navLinks: NavLinkItem[] = [
+  { name: "Home", href: "/", icon: <Home className="w-5 h-5" /> },
   { name: "About", href: "/about", icon: <User className="w-5 h-5" /> },
   { name: "Skills", href: "/skills", icon: <Code2 className="w-5 h-5" /> },
   {

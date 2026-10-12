@@ -84,7 +84,7 @@ const Hero: React.FC<HeroProps> = ({
   email = "pallavich343@example.com",
   githubUrl = "https://github.com/pallavi-choudhry/",
   linkedinUrl = "https://www.linkedin.com/in/pallavi-choudhary-0690a1274",
-  // resumeUrl = "https://drive.google.com/file/d/1QCPArh5elYc4jh_DyOacO4Qx6ekV2K8s/view?usp=drivesdk",
+  resumeUrl = "https://drive.google.com/file/d/1DjKhzvi3zui2olvlZ7QKzZUnRnd_dUlo/view?usp=drivesdk",
   // resumeUrl = "https://drive.google.com/file/d/1lgBxz7Q0Q69MGZiBvBBzcfq_nB2xADUb/view?usp=drive_link",
 
   availableForWork = true,
@@ -288,7 +288,7 @@ const Hero: React.FC<HeroProps> = ({
             </motion.div> */}
 
             {/* Action Buttons */}
-            {/* <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 pt-2">
+            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 pt-2">
               {/* Primary CTA */}
               <motion.a
                 whileHover={{ scale: 1.05, y: -2 }}
@@ -300,17 +300,17 @@ const Hero: React.FC<HeroProps> = ({
                 <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </motion.a>
               
-              {/* Resume Button */}
-              {/* <motion.a
+              {/* Resume Button  */}
+               <motion.a
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 href={resumeUrl}
                 target="_blank"
                 className="group inline-flex items-center gap-2 px-8 py-3.5 glass-hover rounded-full font-semibold text-[#dfe6e9] border border-white/10 hover:border-[#6c5ce7]/40 transition-all duration-300"
               >
-                <Download className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+                <Download className="w-4 h-4 group-hover:translate-y-0.5 transition-transform " />
                 Download Resume
-              </motion.a> */}
+              </motion.a>
               
               {/* Contact Button */}
               {/* <motion.a
@@ -322,12 +322,12 @@ const Hero: React.FC<HeroProps> = ({
                 <Mail className="w-4 h-4" />
                 Contact Me
               </motion.a> */}
-            {/* </motion.div> */}
+            </motion.div>
 
           
 
             {/* Social + Navigation Row */}
-            {/* <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/5">
+            <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/5">
               {/* Social Icons */}
               <div className="flex items-center gap-3">
                 <motion.a
@@ -365,6 +365,7 @@ const Hero: React.FC<HeroProps> = ({
   className="flex justify-center lg:justify-end"
 >
   
+</motion.div>
 </motion.div>
 </div>
           
